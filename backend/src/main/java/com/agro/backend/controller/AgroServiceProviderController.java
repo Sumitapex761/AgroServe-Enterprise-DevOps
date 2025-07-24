@@ -16,7 +16,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/providers")
+@RequestMapping("/provider")
 @AllArgsConstructor
 @Validated
 public class AgroServiceProviderController {

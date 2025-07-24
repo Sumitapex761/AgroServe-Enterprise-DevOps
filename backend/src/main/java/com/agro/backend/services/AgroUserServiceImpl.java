@@ -11,7 +11,7 @@ import lombok.AllArgsConstructor;
 @Service
 @Transactional
 @AllArgsConstructor
-public class AgroUserServiceImpl {
+public class AgroUserServiceImpl implements AgroUserService {
 	private final ModelMapper modelmapper;
 	private final AgroUserRepository userRepository;
 }

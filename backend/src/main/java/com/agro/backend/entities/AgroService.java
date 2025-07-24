@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,9 +34,9 @@ public class AgroService {
 	
     private double price;
 
-//    @ManyToOne
-//    @JoinColumn(name = "provider_id")
-//    private ServiceProvider provider;
+    @ManyToOne
+    @JoinColumn(name = "provider_id")
+    private AgroServiceProvider provider;
 //
 //    @OneToMany(mappedBy = "service")
 //    private List<Booking> bookings;

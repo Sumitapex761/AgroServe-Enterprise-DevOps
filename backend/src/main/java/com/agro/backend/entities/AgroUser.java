@@ -20,7 +20,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class AggroUser {
+public class AgroUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(nullable = false)

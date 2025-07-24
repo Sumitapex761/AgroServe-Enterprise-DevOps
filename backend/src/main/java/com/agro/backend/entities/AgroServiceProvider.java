@@ -1,5 +1,6 @@
 package com.agro.backend.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -13,18 +14,23 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString(exclude = "services")
 public class AgroServiceProvider {
 
 	
 	    @Id 
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
+	    
+	    @Column(nullable = false, unique = true)
+	    private String email;
 	    
 	    @Column(nullable = false)
 	    private String name;
@@ -36,6 +42,6 @@ public class AgroServiceProvider {
 	    private String contactInfo;
 
 	    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL)
-	    private List<AgroService> services;
+	    private List<AgroService> services = new ArrayList<>();
 	
 }

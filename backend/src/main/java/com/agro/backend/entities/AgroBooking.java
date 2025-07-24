@@ -49,5 +49,5 @@ public class AgroBooking {
     private AgroService service;
 
     @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
-    private Notification notification;
+    private AgroNotification notification;
 }

@@ -20,7 +20,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Notification {
+public class AgroNotification {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

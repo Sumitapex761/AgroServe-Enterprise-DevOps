@@ -3,15 +3,13 @@ package com.agro.backend.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.agro.backend.services.AgroServiceProviderService;
+import com.agro.backend.services.AgroUserService;
 
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/providers")
+@RequestMapping("/users")
 @AllArgsConstructor
-public class AgroServiceProviderController {
-
-	private final AgroServiceProviderService providerService;
-	
+public class AgroUserController {
+    private final AgroUserService userService;
 }

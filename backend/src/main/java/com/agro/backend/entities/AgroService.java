@@ -1,7 +1,9 @@
 package com.agro.backend.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 
 //import com.sun.tools.javac.util.List;
@@ -14,6 +16,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,9 +29,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class AgroService {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@EqualsAndHashCode.Include
     private Long id;
 	@Column(length = 50,unique = true)
 	private String name;
@@ -42,6 +47,8 @@ public class AgroService {
     @JoinColumn(name = "provider_id")
     private AgroServiceProvider provider;
 
-    @OneToMany(mappedBy = "service")
-    private List<AgroBooking> bookings;
+    @OneToMany(mappedBy = "service", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AgroBooking> bookings = new ArrayList<>();
+    
+    
 }

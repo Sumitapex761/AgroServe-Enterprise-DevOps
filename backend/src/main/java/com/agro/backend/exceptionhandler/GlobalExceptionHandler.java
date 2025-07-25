@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.agro.backend.exceptions.ApiPostResponseException;
+import com.agro.backend.exceptions.BadRequestException;
+import com.agro.backend.exceptions.ResourceNotFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -21,7 +23,21 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new ErrorResponse("Internal Server Error: " + ex.getMessage()));
     }
-
+    
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<?> handleResorceNotFoundException(ResourceNotFoundException ex){
+    	return ResponseEntity.status(HttpStatus.NO_CONTENT)
+    			.body(new ErrorResponse("Resource Not Found: "+ ex.getMessage()));
+    }
+    
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<?> handleBadRequestException(BadRequestException ex){
+    	return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+    			.body(new ErrorResponse("Bad request: "+ex.getMessage()));
+    }
+    
+    
+    
     static class ErrorResponse {
         private String error;
 

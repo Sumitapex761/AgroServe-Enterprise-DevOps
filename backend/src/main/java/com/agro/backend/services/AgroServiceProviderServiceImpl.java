@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.agro.backend.dtos.ProviderRequestDto;
+import com.agro.backend.dtos.ProviderResponseDto;
 import com.agro.backend.entities.AgroServiceProvider;
 import com.agro.backend.exceptions.ApiPostResponseException;
+import com.agro.backend.exceptions.ResourceNotFoundException;
 import com.agro.backend.repositories.AgroServiceProviderRepository;
 import com.agro.backend.responses.CreationResponseDto;
 
@@ -34,6 +36,12 @@ public class AgroServiceProviderServiceImpl implements AgroServiceProviderServic
 		System.out.println(saved);
 		
 		return new CreationResponseDto("the service provider is registered");
+	}
+	@Override
+	public ProviderResponseDto getProviderById(Long id) {
+		AgroServiceProvider provider = providerRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("No such provider exists "+ id));
+		
+		return modelmapper.map(provider, ProviderResponseDto.class);
 	}
 	
 }

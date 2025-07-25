@@ -41,7 +41,20 @@ public class AgroServiceProvider {
 	    @Column(nullable = false)
 	    private String contactInfo;
 
-	    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL)
+	    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, orphanRemoval = true)
 	    private List<AgroService> services = new ArrayList<>();
+	    
+	    // helper method to add service 
+	    public void addService(AgroService service) {
+	        services.add(service);
+	        service.setProvider(this);  // set the back-reference
+	    }
+	    
+	    // helper method to remove a service 
+	    public void removeService(AgroService service) {
+	        services.remove(service);  // mathched by the IDs
+	        service.setProvider(null);  // remove the back-reference
+	    }
+	    
 	
 }

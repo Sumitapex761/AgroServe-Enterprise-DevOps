@@ -2,6 +2,7 @@ package com.agro.backend.exceptions;
 
 import lombok.Data;
 
+@SuppressWarnings("serial")
 @Data
 public class ApiPostResponseException extends RuntimeException{
 

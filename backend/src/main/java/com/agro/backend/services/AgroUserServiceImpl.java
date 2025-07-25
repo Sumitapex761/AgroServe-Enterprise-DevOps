@@ -11,7 +11,7 @@ import com.agro.backend.dtos.AgroUserResponseDTO;
 import com.agro.backend.entities.AgroUser;
 import com.agro.backend.exceptions.ApiPostResponseException;
 import com.agro.backend.repositories.AgroUserRepository;
-import com.agro.backend.responses.CreationResponseDto;
+import com.agro.backend.responses.ApiResponseDto;
 
 import lombok.AllArgsConstructor;
 
@@ -24,7 +24,7 @@ public class AgroUserServiceImpl implements AgroUserService {
     private final AgroUserRepository userRepository;
 
     @Override
-    public CreationResponseDto createUser(AgroUserRequestDTO requestDTO) {
+    public ApiResponseDto createUser(AgroUserRequestDTO requestDTO) {
         // Check confirm password
         if (!requestDTO.getPassword().equals(requestDTO.getConfirmPassword())) {
             throw new ApiPostResponseException("Password and Confirm Password do not match");
@@ -37,11 +37,11 @@ public class AgroUserServiceImpl implements AgroUserService {
         userRepository.save(user);
 
         // Return success message
-        return new CreationResponseDto("User created successfully");
+        return new ApiResponseDto("User created successfully");
     }
     
     @Override
-    public CreationResponseDto updateUser(Long id, AgroUserRequestDTO requestDTO) {
+    public ApiResponseDto updateUser(Long id, AgroUserRequestDTO requestDTO) {
         // Find user by ID
         AgroUser existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new ApiPostResponseException("User not found with id: " + id));
@@ -57,11 +57,11 @@ public class AgroUserServiceImpl implements AgroUserService {
         // Save updated user
         userRepository.save(existingUser);
 
-        return new CreationResponseDto("User updated successfully");
+        return new ApiResponseDto("User updated successfully");
     }
     
     @Override
-    public CreationResponseDto deleteUser(Long id) {
+    public ApiResponseDto deleteUser(Long id) {
         // Check if user exists
         AgroUser existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new ApiPostResponseException("User not found with id: " + id));
@@ -69,7 +69,7 @@ public class AgroUserServiceImpl implements AgroUserService {
         // Delete user
         userRepository.delete(existingUser);
 
-        return new CreationResponseDto("User deleted successfully");
+        return new ApiResponseDto("User deleted successfully");
     }
     
     @Override

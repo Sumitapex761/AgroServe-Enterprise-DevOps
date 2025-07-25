@@ -30,7 +30,7 @@ public class AgroUserServiceImpl implements AgroUserService {
             throw new ApiPostResponseException("Password and Confirm Password do not match");
         }
 
-        // DTO → Entity
+        // DTO -> Entity
         AgroUser user = modelMapper.map(requestDTO, AgroUser.class);
 
         // Save to DB

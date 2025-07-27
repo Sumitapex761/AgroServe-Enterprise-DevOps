@@ -13,7 +13,7 @@ import com.agro.backend.entities.AgroBooking;
 import com.agro.backend.entities.AgroNotification;
 import com.agro.backend.entities.AgroUser;
 import com.agro.backend.exceptions.ApiPostResponseException;
-import com.agro.backend.repositories.AgroBookingServiceRepository;
+import com.agro.backend.repositories.AgroBookingRepository;
 import com.agro.backend.repositories.AgroNotificationRepository;
 import com.agro.backend.repositories.AgroUserRepository;
 import com.agro.backend.responses.ApiResponseDto;
@@ -27,7 +27,7 @@ public class AgroNotificationServiceImpl implements AgroNotificationService {
 
     private final ModelMapper modelMapper;
     private final AgroNotificationRepository notificationRepository;
-    private final AgroBookingServiceRepository bookingRepository;
+    private final AgroBookingRepository bookingRepository;
     private final AgroUserRepository userRepository;
 
     @Override

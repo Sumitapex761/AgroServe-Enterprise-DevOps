@@ -28,7 +28,7 @@ A Spring Boot based backend application for managing agricultural service bookin
 ### **2. DTOs (Data Transfer Objects)**
 - **AgroUserRequestDTO** → For creating and updating users (with validation annotations).
 - **ProviderRequestDto** → For creating service providers.
-- **CreationResponseDto** → Standard success response message.
+- **ApiResponseDto** → Standard success response message.
 - *(Similar DTOs can be extended for services and bookings.)*
 
 ---

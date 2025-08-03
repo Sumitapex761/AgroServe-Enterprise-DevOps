@@ -24,7 +24,7 @@ public class AgroUserController {
 
     private final AgroUserService userService;
 
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<?> createUser(@Valid @RequestBody AgroUserRequestDTO requestDTO) {
         
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(requestDTO));

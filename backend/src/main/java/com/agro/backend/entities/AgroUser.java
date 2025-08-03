@@ -1,5 +1,12 @@
 package com.agro.backend.entities;
 
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -20,7 +27,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class AgroUser {
+public class AgroUser implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(nullable = false)
@@ -58,6 +65,22 @@ public class AgroUser {
 	
 	@Column
 	private String Address;
+	
+	
+	
+	// these mthods need to override for the basic security
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		List.of(new SimpleGrantedAuthority(this.getRole().getAuthority()));
+		return null;
+	}
+
+	// we will be using 
+	@Override
+	public String getUsername() {
+		return this.getEmail();
+	}
 	
 	
 }

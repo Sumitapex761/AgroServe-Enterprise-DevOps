@@ -1,6 +1,5 @@
 package com.agro.backend.services;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -37,11 +36,7 @@ public class AgroNotificationServiceImpl implements AgroNotificationService {
         AgroUser farmer = userRepository.findById(requestDto.getFarmerId())
                 .orElseThrow(() -> new ApiPostResponseException("Farmer not found"));
 
-        AgroNotification notification = new AgroNotification();
-        notification.setMessage(requestDto.getMessage());
-        notification.setBooking(booking);
-        notification.setFarmer(farmer);
-        notification.setSentAt(LocalDateTime.now());
+        AgroNotification notification = modelMapper.map(requestDto, AgroNotification.class);
 
         notificationRepository.save(notification);
         return new ApiResponseDto("Notification created successfully");

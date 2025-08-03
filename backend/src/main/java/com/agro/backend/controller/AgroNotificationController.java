@@ -30,17 +30,17 @@ public class AgroNotificationController {
     private final AgroNotificationService notificationService;
 
     @PostMapping
-    public ResponseEntity<ApiResponseDto> createNotification(@RequestBody @Valid AgroNotificationRequestDto requestDto) {
+    public ResponseEntity<?> createNotification(@RequestBody @Valid AgroNotificationRequestDto requestDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(notificationService.createNotification(requestDto));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AgroNotificationResponseDto> getNotificationById(@PathVariable Long id) {
+    public ResponseEntity<?> getNotificationById(@PathVariable Long id) {
         return ResponseEntity.ok(notificationService.getNotificationById(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<AgroNotificationResponseDto>> getAllNotifications() {
+    public ResponseEntity<?> getAllNotifications() {
         return ResponseEntity.ok(notificationService.getAllNotifications());
     }
 

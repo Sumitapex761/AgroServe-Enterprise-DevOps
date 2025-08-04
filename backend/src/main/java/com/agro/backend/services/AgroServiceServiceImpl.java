@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.agro.backend.dtos.AgroServiceRequestDTO;
+import com.agro.backend.dtos.AgroServiceResponseDTO;
 import com.agro.backend.entities.AgroService;
 import com.agro.backend.entities.AgroServiceProvider;
 import com.agro.backend.exceptions.ApiPostResponseException;
@@ -71,6 +72,12 @@ public class AgroServiceServiceImpl implements AgroServiceService {
 
     	    return new ApiResponseDto("Service removed successfully");
     }
+
+	@Override
+	public AgroServiceResponseDTO getServiceById(Long id) {
+		AgroService agroService = serviceRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("No service Available for this Id"));
+		return modelMapper.map(agroService, AgroServiceResponseDTO.class);
+	}
 
    
 }

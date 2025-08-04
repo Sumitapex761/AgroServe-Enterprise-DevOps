@@ -72,7 +72,7 @@ public class AgroUser implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		List.of(new SimpleGrantedAuthority(this.getRole().getAuthority()));
+		List.of(new SimpleGrantedAuthority(this.getRole().name()));
 		return null;
 	}
 

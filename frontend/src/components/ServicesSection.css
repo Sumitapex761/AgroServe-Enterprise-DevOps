@@ -1,0 +1,25 @@
+/* src/components/ServicesSection.css */
+
+.services-section {
+  background-color: #f8f9fa; /* light gray */
+}
+
+.service-card {
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.service-card .btn-success {
+  background-color: #198754;
+  border: none;
+}
+
+.service-card .btn-success:hover,
+.service-card .btn-success:focus {
+  background-color: #157347;
+}

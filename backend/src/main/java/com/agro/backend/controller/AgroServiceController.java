@@ -24,6 +24,12 @@ import lombok.AllArgsConstructor;
 public class AgroServiceController {
 
     private final AgroServiceService agroService;
+    
+    @GetMapping
+    public ResponseEntity<?> getAllServices() {
+        return ResponseEntity.ok(agroService.getAllServices());
+    }
+
 
     @PostMapping
     public ResponseEntity<?> createService(@Valid @RequestBody AgroServiceRequestDTO requestDTO) {

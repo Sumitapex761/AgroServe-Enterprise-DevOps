@@ -1,5 +1,7 @@
 package com.agro.backend.services;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -78,6 +80,14 @@ public class AgroServiceServiceImpl implements AgroServiceService {
 		AgroService agroService = serviceRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("No service Available for this Id"));
 		return modelMapper.map(agroService, AgroServiceResponseDTO.class);
 	}
+
+	public List<AgroServiceResponseDTO> getAllServices() {
+	    return serviceRepository.findAll()
+	            .stream()
+	            .map(service -> modelMapper.map(service, AgroServiceResponseDTO.class))
+	            .toList();
+	}
+
 
    
 }

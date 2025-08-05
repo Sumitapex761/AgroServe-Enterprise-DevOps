@@ -2,6 +2,7 @@ package com.agro.backend.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.agro.backend.dtos.AgroServiceRequestDTO;
 import com.agro.backend.services.AgroServiceService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 @CrossOrigin(origins = "http://localhost:5173")  // cross origin from React site
@@ -32,6 +34,8 @@ public class AgroServiceController {
 
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
+	@Operation(description = "Add New Service")
     public ResponseEntity<?> createService(@Valid @RequestBody AgroServiceRequestDTO requestDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(agroService.createService(requestDTO));
     }

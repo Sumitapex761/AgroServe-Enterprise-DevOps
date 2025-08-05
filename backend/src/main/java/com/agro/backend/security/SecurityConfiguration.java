@@ -36,7 +36,9 @@ public class SecurityConfiguration {
 				//  /error - public
 					.requestMatchers("/error").permitAll()
 				//  Front end React In Flight requesta - allo
-				.requestMatchers(HttpMethod.OPTIONS).permitAll());
+				.requestMatchers(HttpMethod.OPTIONS).permitAll()
+				.anyRequest().authenticated());
+				
 		
 				// 5. set session creation policy - stateless
 				http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

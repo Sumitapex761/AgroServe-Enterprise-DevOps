@@ -1,6 +1,6 @@
 package com.agro.backend.entities;
 
 public enum Role {
- SERVICEPROVIDER, FARMER, ADMIN;
+ ROLE_SERVICEPROVIDER, ROLE_FARMER, ROLE_ADMIN;
 
 }

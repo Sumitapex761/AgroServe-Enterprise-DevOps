@@ -3,12 +3,15 @@ package com.agro.backend.services;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.agro.backend.dtos.AgroUserRequestDTO;
 import com.agro.backend.dtos.AgroUserResponseDTO;
+import com.agro.backend.dtos.SignupReqDTO;
 import com.agro.backend.entities.AgroUser;
+import com.agro.backend.exceptions.ApiException;
 import com.agro.backend.exceptions.ApiPostResponseException;
 import com.agro.backend.repositories.AgroUserRepository;
 import com.agro.backend.responses.ApiResponseDto;
@@ -22,6 +25,7 @@ public class AgroUserServiceImpl implements AgroUserService {
 
     private final ModelMapper modelMapper;
     private final AgroUserRepository userRepository;
+    private final PasswordEncoder encoder;
 
     @Override
     public ApiResponseDto createUser(AgroUserRequestDTO requestDTO) {
@@ -79,6 +83,24 @@ public class AgroUserServiceImpl implements AgroUserService {
                 .map(user -> modelMapper.map(user, AgroUserResponseDTO.class))
                 .toList();
     }
+
+	@Override
+	public AgroUserResponseDTO signUp(SignupReqDTO dto) throws ApiException {
+		
+		// 1. check for dup email
+		if(userRepository.existsByEmail(dto.getEmail())) {
+			throw new ApiException("this Email already exists");
+		}
+		// new email 
+		// dto -> entity
+		AgroUser entity = modelMapper.map(dto, AgroUser.class);
+		// encrypt password
+		entity.setPassword(encoder.encode(entity.getPassword()));
+		//4. save the entity n map persistent entity -> resp dto
+		return modelMapper.map(userRepository.save(entity), AgroUserResponseDTO.class);
+		
+		
+	}
 
 
 

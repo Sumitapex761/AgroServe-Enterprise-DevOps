@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.agro.backend.dtos.SignInDTO;
-import com.agro.backend.repositories.AgroUserRepository;
+import com.agro.backend.dtos.SignupReqDTO;
+import com.agro.backend.exceptions.ApiException;
 import com.agro.backend.responses.AuthResponse;
 import com.agro.backend.security.JwtUtils;
 import com.agro.backend.services.AgroUserService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -24,7 +26,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UserSignInSignUpController {
 
-    private final AgroUserRepository agroUserRepository;
+    
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
     private final AgroUserService agroUserService;
@@ -62,11 +64,12 @@ public class UserSignInSignUpController {
      * Response - SC 201 , user response dto 
      * Error - duplicate email - SC 400 | SC 409 , api response - error msg
      */
-//    @PostMapping("/signup")
-//    public ResponseEntity<?> signupUser(@RequestBody @Valid SignupReqDTO dto) {
-//        System.out.println("in signup " + dto);
-//        return ResponseEntity
-//                .status(HttpStatus.CREATED)
-//                .body(agroUserService.signUp(dto));
-//    }
+     @PostMapping("/signup")
+     public ResponseEntity<?> signupUser(@RequestBody @Valid SignupReqDTO dto) throws ApiException {
+    	 
+         System.out.println("in signup " + dto);
+         return ResponseEntity
+                 .status(HttpStatus.CREATED)
+                 .body(agroUserService.signUp(dto));
+    }
 }

@@ -1,0 +1,44 @@
+.dashboard-container {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+/* Stats Cards */
+.stat-card {
+  border-radius: 12px;
+  transition: transform 0.2s ease-in-out;
+}
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+.stat-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+.stat-value {
+  font-weight: bold;
+  font-size: 1.8rem;
+  color: #198754;
+}
+.stat-title {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+/* Chart Cards */
+.chart-card {
+  border-radius: 12px;
+  transition: transform 0.2s ease-in-out;
+}
+.chart-card:hover {
+  transform: translateY(-5px);
+}
+
+h2 {
+  font-weight: bold;
+}
+h5 {
+  color: #198754;
+  font-weight: 600;
+}

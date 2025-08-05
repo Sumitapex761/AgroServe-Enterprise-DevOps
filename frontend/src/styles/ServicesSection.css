@@ -1,7 +1,6 @@
-/* src/components/ServicesSection.css */
-
+/* src/styles/ServicesSection.css */
 .services-section {
-  background-color: #f8f9fa; /* light gray */
+  background-color: #f8f9fa;
 }
 
 .service-card {

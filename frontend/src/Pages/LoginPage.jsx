@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
+import "../styles/AuthPage.css"; // <-- new css file
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -25,44 +26,48 @@ export default function LoginPage() {
   };
 
   return (
-    <Container className="mt-5">
-      <Row className="justify-content-md-center">
-        <Col md={5}>
-          <Card className="p-4 shadow">
-            <h3 className="text-center mb-4">Login</h3>
-            <Form onSubmit={handleLogin}>
-              <Form.Group controlId="email">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </Form.Group>
-              <Form.Group controlId="password" className="mt-3">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </Form.Group>
-              <Button variant="success" type="submit" className="mt-4 w-100">
-                Login
-              </Button>
-              <Button
-                variant="link"
-                onClick={() => navigate("/signup")}
-                className="mt-2 w-100"
-              >
-                Don't have an account? Sign Up
-              </Button>
-            </Form>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+    <div className="auth-page d-flex align-items-center">
+      <Container>
+        <Row className="justify-content-center">
+          <Col md={5}>
+            <Card className="p-4 shadow-lg auth-card">
+              <h3 className="text-center mb-4 text-success">Login</h3>
+              <Form onSubmit={handleLogin}>
+                <Form.Group controlId="email" className="mb-3">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email"
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="password" className="mb-4">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter your password"
+                    required
+                  />
+                </Form.Group>
+                <Button variant="success" type="submit" className="w-100">
+                  Login
+                </Button>
+                <Button
+                  variant="link"
+                  onClick={() => navigate("/signup")}
+                  className="w-100 mt-2"
+                >
+                  Don&apos;t have an account? Sign Up
+                </Button>
+              </Form>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 }

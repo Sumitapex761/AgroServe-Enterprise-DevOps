@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
+import "../styles/AuthPage.css"; // using same css as login
 
 export default function SignupPage() {
   const [name, setName] = useState("");
@@ -28,62 +29,68 @@ export default function SignupPage() {
   };
 
   return (
-    <Container className="mt-5">
-      <Row className="justify-content-md-center">
-        <Col md={5}>
-          <Card className="p-4 shadow">
-            <h3 className="text-center mb-4">Sign Up</h3>
-            <Form onSubmit={handleSignup}>
-              <Form.Group controlId="name">
-                <Form.Label>Name</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                />
-              </Form.Group>
-              <Form.Group controlId="email" className="mt-3">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </Form.Group>
-              <Form.Group controlId="phone" className="mt-3">
-                <Form.Label>Phone</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  required
-                />
-              </Form.Group>
-              <Form.Group controlId="password" className="mt-3">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </Form.Group>
-              <Button variant="success" type="submit" className="mt-4 w-100">
-                Sign Up
-              </Button>
-              <Button
-                variant="link"
-                onClick={() => navigate("/login")}
-                className="mt-2 w-100"
-              >
-                Already have an account? Login
-              </Button>
-            </Form>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+    <div className="auth-page d-flex align-items-center">
+      <Container>
+        <Row className="justify-content-center">
+          <Col md={5}>
+            <Card className="p-4 shadow-lg auth-card">
+              <h3 className="text-center mb-4 text-success">Sign Up</h3>
+              <Form onSubmit={handleSignup}>
+                <Form.Group controlId="name" className="mb-3">
+                  <Form.Label>Name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Enter your name"
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="email" className="mb-3">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email"
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="phone" className="mb-3">
+                  <Form.Label>Phone</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="Enter your phone number"
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="password" className="mb-4">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter your password"
+                    required
+                  />
+                </Form.Group>
+                <Button variant="success" type="submit" className="w-100">
+                  Sign Up
+                </Button>
+                <Button
+                  variant="link"
+                  onClick={() => navigate("/login")}
+                  className="w-100 mt-2"
+                >
+                  Already have an account? Login
+                </Button>
+              </Form>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 }

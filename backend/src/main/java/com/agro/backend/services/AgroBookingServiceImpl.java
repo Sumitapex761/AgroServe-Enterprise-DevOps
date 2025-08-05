@@ -28,6 +28,7 @@ public class AgroBookingServiceImpl implements AgroBookingService {
     private final AgroUserRepository userRepository;
     private final AgroServiceRepository serviceRepository;
     private final ModelMapper modelMapper;
+    private final AgroNotificationService notificationService; // <-- Added
 
     @Override
     public ApiResponseDto createBooking(BookingRequestDto requestDto) {
@@ -42,7 +43,11 @@ public class AgroBookingServiceImpl implements AgroBookingService {
         booking.setService(service);
 
         bookingRepository.save(booking);
-        return new ApiResponseDto("Booking created successfully");
+
+        // Trigger Notification
+        notificationService.createBookingNotification(booking);
+
+        return new ApiResponseDto("Booking created successfully and notification sent");
     }
 
     @Override

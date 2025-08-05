@@ -1,7 +1,7 @@
 // src/components/ServicesSection.jsx
 import React from "react";
 import { Card, Button, Container, Row, Col } from "react-bootstrap";
-import "./ServicesSection.css";
+import "../styles/ServicesSection.css";
 
 const services = [
   {

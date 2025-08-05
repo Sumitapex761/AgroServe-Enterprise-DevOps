@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Container, Form, Button, Alert } from "react-bootstrap";
+import { Container, Form, Button, Alert, Card } from "react-bootstrap";
+import { EnvelopeFill, PersonFill, ChatDotsFill } from "react-bootstrap-icons";
+import "../styles/ContactPage.css";
 
 function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -14,33 +16,75 @@ function ContactPage() {
     // TODO: integrate with backend
     console.log("Contact form data:", formData);
     setSubmitted(true);
+    setTimeout(() => setSubmitted(false), 3000);
   };
 
   return (
-    <Container className="py-5" style={{ maxWidth: "600px" }}>
-      <h2 className="text-center mb-4">Contact Us</h2>
-      {submitted && <Alert variant="success">Message sent successfully!</Alert>}
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="formName">
-          <Form.Label>Name</Form.Label>
-          <Form.Control type="text" name="name" required value={formData.name} onChange={handleChange} />
-        </Form.Group>
+    <div className="contact-page py-5">
+      <Container style={{ maxWidth: "650px" }}>
+        <h2 className="text-center mb-4 section-title">Get in Touch</h2>
 
-        <Form.Group className="mb-3" controlId="formEmail">
-          <Form.Label>Email</Form.Label>
-          <Form.Control type="email" name="email" required value={formData.email} onChange={handleChange} />
-        </Form.Group>
+        {submitted && (
+          <Alert variant="success" className="text-center">
+            Your message has been sent successfully!
+          </Alert>
+        )}
 
-        <Form.Group className="mb-3" controlId="formMessage">
-          <Form.Label>Message</Form.Label>
-          <Form.Control as="textarea" name="message" rows={4} required value={formData.message} onChange={handleChange} />
-        </Form.Group>
+        <Card className="contact-card shadow-sm p-4">
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="formName">
+              <Form.Label>
+                <PersonFill className="me-2 text-success" />
+                Name
+              </Form.Label>
+              <Form.Control
+                type="text"
+                name="name"
+                placeholder="Enter your name"
+                required
+                value={formData.name}
+                onChange={handleChange}
+              />
+            </Form.Group>
 
-        <Button variant="primary" type="submit" className="w-100">
-          Send
-        </Button>
-      </Form>
-    </Container>
+            <Form.Group className="mb-3" controlId="formEmail">
+              <Form.Label>
+                <EnvelopeFill className="me-2 text-success" />
+                Email
+              </Form.Label>
+              <Form.Control
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+                value={formData.email}
+                onChange={handleChange}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formMessage">
+              <Form.Label>
+                <ChatDotsFill className="me-2 text-success" />
+                Message
+              </Form.Label>
+              <Form.Control
+                as="textarea"
+                name="message"
+                rows={4}
+                placeholder="Write your message..."
+                required
+                value={formData.message}
+                onChange={handleChange}
+              />
+            </Form.Group>
+
+            <Button variant="success" type="submit" className="w-100">
+              Send Message
+            </Button>
+          </Form>
+        </Card>
+      </Container>
+    </div>
   );
 }
 

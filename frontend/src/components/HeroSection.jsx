@@ -1,27 +1,22 @@
+// src/components/HeroSection.jsx
 import React from "react";
-import heroImage from "../assets/agro_1.jpg";
+import heroImage from "../assets/agro_1.jpg";  // <-- imported from src/assets
+import "../styles/HeroSection.css";
 
 function HeroSection() {
-  const heroStyle = {
-    backgroundImage: `url(${heroImage})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    height: "100vh",          // <-- Full Screen Height
-    width: "100%",            // <-- Full Width
-    display: "flex",          // Center Content
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    color: "white",
-    textAlign: "center",
-  };
-
   return (
-    <section style={heroStyle}>
-      <h1>Welcome to Agro Services</h1>
-      <p>Connecting Farmers with Agricultural Service Providers.</p>
-      <button className="btn btn-success btn-lg">Explore Services</button>
+    <section 
+      className="hero-section"
+      style={{
+        backgroundImage: `url(${heroImage})`
+      }}
+    >
+      <div className="overlay"></div>
+      <div className="hero-content">
+        <h1>Welcome to Agro Services</h1>
+        <p>Connecting Farmers with Agricultural Service Providers.</p>
+        <button className="btn btn-success btn-lg">Explore Services</button>
+      </div>
     </section>
   );
 }

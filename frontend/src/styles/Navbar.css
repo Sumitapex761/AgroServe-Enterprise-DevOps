@@ -1,0 +1,46 @@
+/* Navbar background gradient */
+.custom-navbar {
+  background: linear-gradient(90deg, #14532d, #198754);
+  padding: 0.7rem 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Brand Logo */
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: white !important;
+}
+
+.navbar-logo {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Nav Links */
+.custom-navbar .nav-link {
+  color: #f1f1f1 !important;
+  font-weight: 500;
+  margin: 0 8px;
+  transition: color 0.3s, transform 0.2s;
+}
+
+.custom-navbar .nav-link:hover {
+  color: #ffd700 !important;
+  transform: translateY(-2px);
+}
+
+/* Buttons */
+.nav-btn {
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}

@@ -1,0 +1,24 @@
+.services-page {
+  background-color: #f8f9fa;
+}
+
+.section-title {
+  font-weight: bold;
+  color: #14532d;
+}
+
+.service-card {
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.booking-modal .modal-content {
+  border-radius: 10px;
+  padding: 5px;
+}

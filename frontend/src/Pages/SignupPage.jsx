@@ -9,22 +9,36 @@ export default function SignupPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [phone, setPhone] = useState("");
+  const [role, setRole] = useState("FARMER"); // default role
+  const [address, setAddress] = useState("");
+
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
     try {
-      await axios.post("http://localhost:8080/auth/signup", {
+      await axios.post("http://localhost:8080/users/signup", {
         name,
         email,
         password,
+        confirmPassword,
         phone,
+        role,
+        address,
       });
       alert("Signup Successful!");
       navigate("/login");
     } catch (error) {
-      alert("Error during signup");
+      console.error(error);
+      alert(error.response?.data?.message || "Error during signup");
     }
   };
 
@@ -32,7 +46,7 @@ export default function SignupPage() {
     <div className="auth-page d-flex align-items-center">
       <Container>
         <Row className="justify-content-center">
-          <Col md={5}>
+          <Col md={6}>
             <Card className="p-4 shadow-lg auth-card">
               <h3 className="text-center mb-4 text-success">Sign Up</h3>
               <Form onSubmit={handleSignup}>
@@ -46,6 +60,7 @@ export default function SignupPage() {
                     required
                   />
                 </Form.Group>
+
                 <Form.Group controlId="email" className="mb-3">
                   <Form.Label>Email</Form.Label>
                   <Form.Control
@@ -56,17 +71,43 @@ export default function SignupPage() {
                     required
                   />
                 </Form.Group>
+
                 <Form.Group controlId="phone" className="mb-3">
                   <Form.Label>Phone</Form.Label>
                   <Form.Control
                     type="text"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    placeholder="Enter your phone number"
+                    placeholder="Enter your phone number (10 digits)"
+                    pattern="\d{10}"
                     required
                   />
                 </Form.Group>
-                <Form.Group controlId="password" className="mb-4">
+
+                <Form.Group controlId="address" className="mb-3">
+                  <Form.Label>Address</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    placeholder="Enter your address"
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group controlId="role" className="mb-3">
+                  <Form.Label>Role</Form.Label>
+                  <Form.Select
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                  >
+                    <option value="FARMER">Farmer</option>
+                    <option value="SERVICEPROVIDER">Service Provider</option>
+                    <option value="ADMIN">Admin</option>
+                  </Form.Select>
+                </Form.Group>
+
+                <Form.Group controlId="password" className="mb-3">
                   <Form.Label>Password</Form.Label>
                   <Form.Control
                     type="password"
@@ -76,6 +117,18 @@ export default function SignupPage() {
                     required
                   />
                 </Form.Group>
+
+                <Form.Group controlId="confirmPassword" className="mb-4">
+                  <Form.Label>Confirm Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    placeholder="Confirm your password"
+                    required
+                  />
+                </Form.Group>
+
                 <Button variant="success" type="submit" className="w-100">
                   Sign Up
                 </Button>

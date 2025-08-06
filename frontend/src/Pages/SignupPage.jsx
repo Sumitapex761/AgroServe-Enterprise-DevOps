@@ -1,3 +1,4 @@
+
 // src/pages/SignupPage.jsx
 import React, { useState } from "react";
 import axios from "axios";
@@ -11,7 +12,7 @@ export default function SignupPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [phone, setPhone] = useState("");
-  const [role, setRole] = useState("FARMER"); // default role
+  const [role, setRole] = useState("ROLE_FARMER"); // default role
   const [address, setAddress] = useState("");
 
   const navigate = useNavigate();
@@ -147,3 +148,4 @@ export default function SignupPage() {
     </div>
   );
 }
+

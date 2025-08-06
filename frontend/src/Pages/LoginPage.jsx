@@ -11,19 +11,26 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post("http://localhost:8080/auth/login", {
-        email,
-        password,
-      });
-      alert("Login Successful!");
-      localStorage.setItem("token", res.data.token);
-      navigate("/");
-    } catch (error) {
-      alert("Invalid credentials");
-    }
-  };
+  e.preventDefault();
+  try {
+    const res = await axios.post("http://localhost:8080/users/signin", {
+      email,
+      password,
+    });
+
+    console.log("🔐 Token Response:", res.data.jwt);
+
+    // Store token
+    localStorage.setItem("token", res.data.jwt);
+
+    alert("Login Successful!");
+    navigate("/");
+  } catch (error) {
+    console.error("Login failed:", error.response || error.message || error);
+    alert("Invalid credentials");
+  }
+};
+
 
   return (
     <div className="auth-page d-flex align-items-center">

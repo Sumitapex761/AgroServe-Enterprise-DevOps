@@ -15,7 +15,7 @@ API.interceptors.request.use((req) => {
 export const getServices = () => API.get(`/services`);
 export const getBookings = (userId) => API.get(`/bookings/${userId}`);
 export const createBooking = (booking) => API.post("/bookings", booking);
-export const signup = (userData) => API.post("/auth/signup", userData);
-export const login = (credentials) => API.post("/auth/login", credentials);
+export const signup = (userData) => API.post("/users/signup", userData);
+export const login = (credentials) => API.post("/users/login", credentials);
 
 export default API;

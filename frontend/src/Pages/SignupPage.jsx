@@ -101,9 +101,9 @@ export default function SignupPage() {
                     value={role}
                     onChange={(e) => setRole(e.target.value)}
                   >
-                    <option value="FARMER">Farmer</option>
-                    <option value="SERVICEPROVIDER">Service Provider</option>
-                    <option value="ADMIN">Admin</option>
+                    <option value="ROLE_FARMER">Farmer</option>
+                    <option value="ROLE_SERVICEPROVIDER">Service Provider</option>
+                   
                   </Form.Select>
                 </Form.Group>
 

@@ -2,6 +2,7 @@ package com.agro.backend.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.agro.backend.dtos.BookingRequestDto;
 import com.agro.backend.services.AgroBookingService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
@@ -24,6 +26,8 @@ public class AgroBookingController {
     private final AgroBookingService bookingService;
 
     @PostMapping
+    @PreAuthorize("hasRole('FARMER')")
+    @Operation(description="add")
     public ResponseEntity<?> createBooking(@RequestBody @Valid BookingRequestDto requestDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(bookingService.createBooking(requestDto));
     }

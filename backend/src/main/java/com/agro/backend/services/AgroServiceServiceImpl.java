@@ -29,6 +29,9 @@ public class AgroServiceServiceImpl implements AgroServiceService {
 
     @Override
     public ApiResponseDto createService(AgroServiceRequestDTO requestDTO) {
+    	
+    	// check if provider exists 
+    	
         AgroServiceProvider provider = providerRepository.findById(requestDTO.getProviderId())
                 .orElseThrow(() -> new ApiPostResponseException("Provider not found"));
 

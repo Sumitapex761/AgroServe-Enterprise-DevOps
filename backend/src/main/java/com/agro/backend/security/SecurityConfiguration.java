@@ -56,5 +56,7 @@ public class SecurityConfiguration {
 	AuthenticationManager authenticationManager(AuthenticationConfiguration mgr)throws Exception {
 		return mgr.getAuthenticationManager();
 	}
+	
+	
 
 }

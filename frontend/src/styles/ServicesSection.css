@@ -1,24 +1,65 @@
-/* src/styles/ServicesSection.css */
 .services-section {
-  background-color: #f8f9fa;
+  background: #f9f9f9;
+}
+
+.section-title {
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: #2c6e49; /* dark green */
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .service-card {
-  border-radius: 10px;
-  transition: transform 0.3s ease;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  background: #fff;
+  color: #2c2c2c;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
 }
 
 .service-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-12px);
+  box-shadow: 0 10px 20px rgba(44, 110, 73, 0.4);
+  background: #d7f3d9; /* light green */
+  color: #145214; /* dark green text */
 }
 
-.service-card .btn-success {
-  background-color: #198754;
-  border: none;
+.service-img-wrapper img {
+  height: 180px;
+  object-fit: cover;
+  border-bottom: 4px solid #2c6e49;
+  transition: filter 0.3s ease;
 }
 
-.service-card .btn-success:hover,
-.service-card .btn-success:focus {
-  background-color: #157347;
+.service-card:hover .service-img-wrapper img {
+  filter: brightness(110%);
+}
+
+.service-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  color: inherit; /* inherit color from card hover */
+  transition: color 0.3s ease;
+}
+
+.service-desc {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: #444;
+  transition: color 0.3s ease;
+}
+
+.service-card:hover .service-desc {
+  color: #234b20;
+}
+
+/* Responsive tweaks */
+@media (max-width: 576px) {
+  .service-img-wrapper img {
+    height: 150px;
+  }
 }

@@ -1,6 +1,7 @@
 package com.agro.backend.dtos;
 
-import com.agro.backend.entities.Status;
+import java.time.LocalDateTime;
+
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,12 +10,11 @@ import lombok.Setter;
 @Setter
 public class BookingRequestDto {
 
-    @NotNull(message = "Status is required")
-    private Status status;
-
-    @NotNull(message = "User ID is required")
-    private Long userId;
 
     @NotNull(message = "Service ID is required")
     private Long serviceId;
+    
+    @NotNull(message = "Select date is required")
+    private LocalDateTime preferredDate;
+    private String notes;
 }

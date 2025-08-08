@@ -28,17 +28,23 @@ import lombok.ToString;
 @Setter
 @ToString
 public class AgroBooking {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-	@CreationTimestamp
-	@Column(name = "booked_on")
-    private LocalDateTime bookingTime;
-	
-	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
-    private Status status; // PENDING, CONFIRMED, COMPLETED
+	    @Id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    private Long id;
+
+	    @CreationTimestamp
+	    @Column(name = "booked_on", nullable = false, updatable = false)
+	    private LocalDateTime bookingTime;
+
+	    @Enumerated(EnumType.STRING)
+	    @Column(nullable = false)
+	    private Status status; // PENDING, CONFIRMED, COMPLETED, CANCELLED
+
+	    @Column(name = "preferred_date")
+	    private LocalDateTime preferredDate; // Farmer’s preferred date for service
+
+	    @Column(length = 500)
+	    private String notes; // Optional farmer message/notes for provider
 
     @ManyToOne
     @JoinColumn(name = "user_id")

@@ -10,7 +10,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -23,27 +22,25 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AgroNotification {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-	
-	 private Long recipientId; // ID from either table
-	 
-	    @Enumerated(EnumType.STRING)
-	    private RecipientType recipientType;
-	
-	@Column(nullable = false)
+
+    private Long recipientId; // ID from either table
+
+    @Enumerated(EnumType.STRING)
+    private RecipientType recipientType;
+
+    @Column(nullable = false)
     private String message;
-	
-	@Column(nullable=false)
+
+    @Column(nullable = false)
     private LocalDateTime sentAt = LocalDateTime.now();
 
     @OneToOne
     @JoinColumn(name = "booking_id")
     private AgroBooking booking;
 
-//    @ManyToOne
-//    @JoinColumn(name = "farmer_id")
-//    private AgroUser recipient; // Farmer being notified
+    @Column(name = "is_read", nullable = false)
+    private boolean isRead = false;  // NEW FIELD added with default false
 }
-

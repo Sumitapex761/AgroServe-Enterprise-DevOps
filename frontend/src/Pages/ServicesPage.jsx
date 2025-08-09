@@ -38,13 +38,13 @@ function ServicesPage() {
 
   const handleBookingSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await createBooking({
-        serviceId: selectedService.id,
-        date: bookingData.date,
-        notes: bookingData.notes,
-        userId: 1, // TODO: Replace with logged-in user ID
-      });
+    const preferredDate = bookingData.date ? bookingData.date + "T10:00:00" : null;
+
+try{await createBooking({
+  serviceId: selectedService.id,
+  preferredDate,
+  notes: bookingData.notes,
+});
       alert("Booking successful!");
       setShowModal(false);
     } catch (error) {

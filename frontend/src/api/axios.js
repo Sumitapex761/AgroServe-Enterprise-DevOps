@@ -19,5 +19,7 @@ export const getBookings = (userId) => API.get(`/bookings/${userId}`);
 export const createBooking = (booking) => API.post("/bookings", booking);
 export const signup = (userData) => API.post("/users/signup", userData);
 export const login = (credentials) => API.post("/users/signin", credentials);
-
+export const getNotifications = () => API.get("/notifications");
+export const markNotificationRead = (id) => API.post(`/notifications/${id}/read`);
+export const approveBooking = (bookingId) => API.put(`/bookings/${bookingId}/approve`);
 export default API;

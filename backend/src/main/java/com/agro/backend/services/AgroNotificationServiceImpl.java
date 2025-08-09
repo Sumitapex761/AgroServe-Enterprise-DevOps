@@ -2,6 +2,7 @@ package com.agro.backend.services;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -35,7 +36,7 @@ public class AgroNotificationServiceImpl implements AgroNotificationService {
     public ApiResponseDto createNotification(AgroNotificationRequestDto requestDto) {
         AgroBooking booking = bookingRepository.findById(requestDto.getBookingId())
                 .orElseThrow(() -> new ApiPostResponseException("Booking not found"));
-        AgroUser farmer = userRepository.findById(requestDto.getFarmerId())
+        AgroUser farmer = userRepository.findById(requestDto.getRecipientId())
                 .orElseThrow(() -> new ApiPostResponseException("Farmer not found"));
 
         AgroNotification notification = new AgroNotification();
@@ -51,23 +52,45 @@ public class AgroNotificationServiceImpl implements AgroNotificationService {
 
     @Override
     public AgroNotificationResponseDto getNotificationById(Long id) {
-        AgroNotification notification = notificationRepository.findById(id)
-                .orElseThrow(() -> new ApiPostResponseException("Notification not found"));
-        AgroNotificationResponseDto dto = modelMapper.map(notification, AgroNotificationResponseDto.class);
-        dto.setBookingId(notification.getBooking().getId());
-        dto.setFarmerId(notification.getRecipientId())
-        ;
-        return dto;
+    	 AgroNotification notification = notificationRepository.findById(id)
+    	            .orElseThrow(() -> new ApiPostResponseException("Notification not found"));
+
+    	    AgroNotificationResponseDto dto = modelMapper.map(notification, AgroNotificationResponseDto.class);
+
+    	    // Safely set bookingId
+    	    if (notification.getBooking() != null) {
+    	        dto.setBookingId(notification.getBooking().getId());
+    	    }
+
+    	    dto.setRecipientId(notification.getRecipientId());
+
+    	    // Map enum to String to avoid serialization issues
+    	    if (notification.getRecipientType() != null) {
+    	        dto.setRecipientType(notification.getRecipientType().name());
+    	    }
+
+    	    return dto;
     }
 
     @Override
     public List<AgroNotificationResponseDto> getAllNotifications() {
-        return notificationRepository.findAll().stream().map(n -> {
-            AgroNotificationResponseDto dto = modelMapper.map(n, AgroNotificationResponseDto.class);
-            dto.setBookingId(n.getBooking().getId());
-            dto.setFarmerId(n.getRecipientId());
-            return dto;
-        }).toList();
+        List<AgroNotification> notifications = notificationRepository.findAll();
+        return notifications.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    private AgroNotificationResponseDto convertToDto(AgroNotification notification) {
+        AgroNotificationResponseDto dto = new AgroNotificationResponseDto();
+        dto.setId(notification.getId());
+        dto.setMessage(notification.getMessage());
+        dto.setRecipientId(notification.getRecipientId());
+        dto.setRecipientType(notification.getRecipientType().name());
+        dto.setSentAt(notification.getSentAt());
+        if (notification.getBooking() != null) {
+            dto.setBookingId(notification.getBooking().getId());
+        }
+        return dto;
     }
 
     @Override
@@ -89,4 +112,60 @@ public class AgroNotificationServiceImpl implements AgroNotificationService {
 
         notificationRepository.save(notification);
     }
+
+	@Override
+	public ApiResponseDto markAsRead(Long notificationId) {
+		AgroNotification notification = notificationRepository.findById(notificationId)
+		        .orElseThrow(() -> new ApiPostResponseException("Notification not found"));
+
+		    notification.setRead(true);  // assuming you have a boolean field isRead in AgroNotification entity
+		    notificationRepository.save(notification);
+
+		    return new ApiResponseDto("Notification marked as read");
+	}
+
+	@Override
+	public List<AgroNotificationResponseDto> getNotificationsForCurrentUser(AgroUser currentUser) {
+		 Long userId = currentUser.getId();
+
+		    // Map Role to RecipientType enum (adjust enum names accordingly)
+		    RecipientType recipientType;
+		    switch (currentUser.getRole()) {
+		        case ROLE_SERVICEPROVIDER:
+		            recipientType = RecipientType.PROVIDER;
+		            break;
+		        case ROLE_FARMER:
+		            recipientType = RecipientType.USER;
+		            break;
+		        case ROLE_ADMIN:
+		            // If Admin can have notifications too, define logic or skip
+		            recipientType = null; // or your admin enum
+		            break;
+		        default:
+		            throw new IllegalArgumentException("Unknown role: " + currentUser.getRole());
+		    }
+
+		    // Defensive: if no valid recipientType, return empty list
+		    if (recipientType == null) return List.of();
+
+		    // Query notifications by recipientId and recipientType
+		    List<AgroNotification> notifications = notificationRepository.findByRecipientIdAndRecipientType(userId, recipientType);
+
+		    // Convert entities to DTOs before returning
+		    return notifications.stream()
+		            .map(this::convertToDto)
+		            .collect(Collectors.toList());
+	}
+	
+//	private AgroNotificationResponseDto convertToDto(AgroNotification entity) {
+//	    AgroNotificationResponseDto dto = new AgroNotificationResponseDto();
+//	    dto.setId(entity.getId());
+//	    dto.setMessage(entity.getMessage());
+//	    dto.setSentAt(entity.getSentAt());
+//	    if (entity.getBooking() != null) {
+//	        dto.setBookingId(entity.getBooking().getId());
+//	    }
+//	    // add any other fields you want to expose
+//	    return dto;
+//	}
 }

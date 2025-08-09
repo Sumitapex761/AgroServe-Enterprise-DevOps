@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,13 +27,22 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/notifications")
 @AllArgsConstructor
 @Validated
+@CrossOrigin(origins = "http://localhost:5173")
 public class AgroNotificationController {
 
     private final AgroNotificationService notificationService;
 
-    @PostMapping
-    public ResponseEntity<?> createNotification(@RequestBody @Valid AgroNotificationRequestDto requestDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(notificationService.createNotification(requestDto));
+//    @PostMapping
+//    public ResponseEntity<?> createNotification(@RequestBody @Valid AgroNotificationRequestDto requestDto) {
+//        return ResponseEntity.status(HttpStatus.CREATED).body(notificationService.createNotification(requestDto));
+//    }
+    
+    
+    // mark the notification as read
+    @PostMapping("/{id}/read")
+    @PreAuthorize("hasAnyRole('SERVICEPROVIDER', 'FARMER', 'ADMIN')")
+    public ResponseEntity<ApiResponseDto> markNotificationRead(@PathVariable Long id) {
+        return ResponseEntity.ok(notificationService.markAsRead(id));
     }
 
     @GetMapping("/{id}")
@@ -40,6 +51,7 @@ public class AgroNotificationController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('SERVICEPROVIDER')")
     public ResponseEntity<?> getAllNotifications() {
         return ResponseEntity.ok(notificationService.getAllNotifications());
     }

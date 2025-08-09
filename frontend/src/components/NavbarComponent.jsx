@@ -5,6 +5,8 @@ import logo from "../assets/agro-serve-logo.jpg";
 import defaultProfilePic from "../assets/userProfile.jpg";
 import "../styles/Navbar.css";
 
+import { getNotifications, markNotificationRead, approveBooking } from "../api/axios";
+
 function NavbarComponent() {
   const navigate = useNavigate();
   const isLoggedIn = localStorage.getItem("token") !== null;
@@ -16,14 +18,14 @@ function NavbarComponent() {
 
   const [notifications, setNotifications] = useState([]);
 
-  // Fetch notifications from backend API - implement your API call here
+  // Fetch notifications from backend API
   const fetchNotifications = async () => {
     try {
-      // TODO: Replace with your API call
-      // const res = await axios.get('/api/notifications');
-      // setNotifications(res.data);
+      const res = await getNotifications();
+      setNotifications(res.data);
     } catch (err) {
       console.error("Failed to fetch notifications:", err);
+      setNotifications([]);
     }
   };
 
@@ -37,15 +39,25 @@ function NavbarComponent() {
 
   const unreadCount = notifications.filter((n) => !n.isRead).length;
 
-  const markAsRead = async (id) => {
+  const handleNotificationClick = async (notif) => {
     try {
-      // TODO: Call API to mark notification read
-      // await axios.post(`/api/notifications/${id}/read`);
+      // Mark notification as read in backend (needs to be implemented in backend)
+      await markNotificationRead(notif.id);
+      // Update local state to mark as read
       setNotifications((prev) =>
-        prev.map((n) => (n.id === id ? { ...n, isRead: true } : n))
+        prev.map((n) => (n.id === notif.id ? { ...n, isRead: true } : n))
       );
+
+      // Confirm approval if notification is a booking request
+      if (window.confirm("Approve this booking request?")) {
+        await approveBooking(notif.bookingId);
+        alert("Booking approved!");
+        // Refresh notifications after approval
+        fetchNotifications();
+      }
     } catch (err) {
-      console.error("Failed to mark notification as read", err);
+      console.error("Error handling notification click:", err);
+      alert("Failed to process notification action");
     }
   };
 
@@ -90,12 +102,9 @@ function NavbarComponent() {
           <div className="d-flex ms-3 align-items-center">
             {isLoggedIn ? (
               <>
+                {/* Notifications Dropdown - Minimal test version to confirm open/close */}
                 <Dropdown align="end" className="me-3">
-                  <Dropdown.Toggle
-                    variant="link"
-                    id="dropdown-notifications"
-                    className="p-0 border-0 position-relative notification-bell"
-                  >
+                  <Dropdown.Toggle id="dropdown-notifications" variant="link" className="p-0 border-0 position-relative notification-bell">
                     <i className="bi bi-bell"></i>
                     {unreadCount > 0 && (
                       <Badge
@@ -108,79 +117,50 @@ function NavbarComponent() {
                     )}
                   </Dropdown.Toggle>
 
-                  <Dropdown.Menu
-                    className="dropdown-menu-notifications p-2"
-                    style={{ minWidth: "300px" }}
-                  >
+                  <Dropdown.Menu className="dropdown-menu-notifications p-2" style={{ minWidth: "300px" }}>
                     <h6 className="px-2">Notifications</h6>
                     <hr className="my-1" />
-                    {notifications.length === 0 && (
-                      <div className="text-center p-2 text-muted">
-                        No notifications
-                      </div>
+                    {notifications.length === 0 ? (
+                      <div className="text-center p-2 text-muted">No notifications</div>
+                    ) : (
+                      notifications.map((notif) => (
+                        <Dropdown.Item
+                          key={notif.id}
+                          onClick={() => handleNotificationClick(notif)}
+                          style={{
+                            backgroundColor: notif.isRead ? "#f9f9f9" : "#e6f7ff",
+                            fontWeight: notif.isRead ? "normal" : "600",
+                            cursor: "pointer",
+                          }}
+                        >
+                          <div>{notif.message}</div>
+                          <small className="text-muted">{new Date(notif.sentAt).toLocaleString()}</small>
+                        </Dropdown.Item>
+                      ))
                     )}
-                    {notifications.map((notif) => (
-                      <Dropdown.Item
-                        key={notif.id}
-                        onClick={() => markAsRead(notif.id)}
-                        style={{
-                          backgroundColor: notif.isRead ? "#f9f9f9" : "#e6f7ff",
-                          fontWeight: notif.isRead ? "normal" : "600",
-                          cursor: "pointer",
-                        }}
-                      >
-                        <div>{notif.title}</div>
-                        <small className="text-muted">{notif.message}</small>
-                      </Dropdown.Item>
-                    ))}
                   </Dropdown.Menu>
                 </Dropdown>
 
+                {/* User Dropdown */}
                 <Dropdown align="end">
-                  <Dropdown.Toggle
-                    variant="link"
-                    id="dropdown-user"
-                    className="p-0 border-0 dropdown-toggle-avatar"
-                  >
-                    <Image
-                      src={user.profilePic}
-                      roundedCircle
-                      width="42"
-                      height="42"
-                      className="profile-icon"
-                    />
+                  <Dropdown.Toggle variant="link" id="dropdown-user" className="p-0 border-0 dropdown-toggle-avatar">
+                    <Image src={user.profilePic} roundedCircle width="42" height="42" className="profile-icon" />
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu className="dropdown-menu-custom">
-                    <Dropdown.Item onClick={() => navigate("/profile")}>
-                      Profile
-                    </Dropdown.Item>
-                    <Dropdown.Item onClick={() => navigate("/bookings")}>
-                      My Bookings
-                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => navigate("/profile")}>Profile</Dropdown.Item>
+                    <Dropdown.Item onClick={() => navigate("/bookings")}>My Bookings</Dropdown.Item>
                     <Dropdown.Divider />
-                    <Dropdown.Item onClick={handleLogout} className="text-danger">
-                      Logout
-                    </Dropdown.Item>
+                    <Dropdown.Item onClick={handleLogout} className="text-danger">Logout</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               </>
             ) : (
               <>
-                <Button
-                  variant="outline-light"
-                  size="sm"
-                  className="me-2 nav-btn"
-                  onClick={() => navigate("/login")}
-                >
+                <Button variant="outline-light" size="sm" className="me-2 nav-btn" onClick={() => navigate("/login")}>
                   Login
                 </Button>
-                <Button
-                  variant="warning"
-                  size="sm"
-                  className="nav-btn"
-                  onClick={() => navigate("/signup")}
-                >
+                <Button variant="warning" size="sm" className="nav-btn" onClick={() => navigate("/signup")}>
                   Sign Up
                 </Button>
               </>

@@ -35,6 +35,8 @@ public class SecurityConfiguration {
 						, "/users/signin", "/users/signup").permitAll()
 				//  /error - public
 					.requestMatchers("/error").permitAll()
+					.requestMatchers("/provider/addprovider").permitAll()
+
 				//  Front end React In Flight requesta - allo
 				.requestMatchers(HttpMethod.OPTIONS).permitAll()
 				.anyRequest().authenticated());

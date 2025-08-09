@@ -12,6 +12,7 @@ import com.agro.backend.dtos.AgroNotificationResponseDto;
 import com.agro.backend.entities.AgroBooking;
 import com.agro.backend.entities.AgroNotification;
 import com.agro.backend.entities.AgroUser;
+import com.agro.backend.entities.RecipientType;
 import com.agro.backend.exceptions.ApiPostResponseException;
 import com.agro.backend.repositories.AgroBookingRepository;
 import com.agro.backend.repositories.AgroNotificationRepository;
@@ -41,7 +42,8 @@ public class AgroNotificationServiceImpl implements AgroNotificationService {
         notification.setMessage(requestDto.getMessage());
         notification.setSentAt(LocalDateTime.now());
         notification.setBooking(booking);
-        notification.setFarmer(farmer);
+        notification.setRecipientId(farmer.getId());
+        notification.setRecipientType(RecipientType.USER);
 
         notificationRepository.save(notification);
         return new ApiResponseDto("Notification created successfully");
@@ -53,7 +55,8 @@ public class AgroNotificationServiceImpl implements AgroNotificationService {
                 .orElseThrow(() -> new ApiPostResponseException("Notification not found"));
         AgroNotificationResponseDto dto = modelMapper.map(notification, AgroNotificationResponseDto.class);
         dto.setBookingId(notification.getBooking().getId());
-        dto.setFarmerId(notification.getFarmer().getId());
+        dto.setFarmerId(notification.getRecipientId())
+        ;
         return dto;
     }
 
@@ -62,7 +65,7 @@ public class AgroNotificationServiceImpl implements AgroNotificationService {
         return notificationRepository.findAll().stream().map(n -> {
             AgroNotificationResponseDto dto = modelMapper.map(n, AgroNotificationResponseDto.class);
             dto.setBookingId(n.getBooking().getId());
-            dto.setFarmerId(n.getFarmer().getId());
+            dto.setFarmerId(n.getRecipientId());
             return dto;
         }).toList();
     }
@@ -82,7 +85,7 @@ public class AgroNotificationServiceImpl implements AgroNotificationService {
         notification.setMessage("New booking created for service: " + booking.getService().getName());
         notification.setSentAt(LocalDateTime.now());
         notification.setBooking(booking);
-        notification.setFarmer(booking.getUser()); // assuming booking user is the farmer
+        notification.setRecipientId(booking.getId()); // assuming booking user is the farmer
 
         notificationRepository.save(notification);
     }

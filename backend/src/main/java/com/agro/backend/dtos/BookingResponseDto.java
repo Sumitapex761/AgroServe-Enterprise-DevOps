@@ -1,20 +1,21 @@
 package com.agro.backend.dtos;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import com.agro.backend.entities.Status;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
-@Getter
-@Setter
-@ToString
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class BookingResponseDto {
     private Long id;
-    private LocalDateTime bookingTime;
-    private Status status;
-    private Long userId;
-    private Long serviceId;
+    private String status;
+    private LocalDateTime preferredDate;
+    private String notes;
+    private String serviceName;
+    private String userName;
 }
+

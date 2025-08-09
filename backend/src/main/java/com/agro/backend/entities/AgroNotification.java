@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,18 +27,23 @@ public class AgroNotification {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
+	 private Long recipientId; // ID from either table
+	 
+	    @Enumerated(EnumType.STRING)
+	    private RecipientType recipientType;
+	
 	@Column(nullable = false)
     private String message;
 	
 	@Column(nullable=false)
-    private LocalDateTime sentAt;
+    private LocalDateTime sentAt = LocalDateTime.now();
 
     @OneToOne
     @JoinColumn(name = "booking_id")
     private AgroBooking booking;
 
-    @ManyToOne
-    @JoinColumn(name = "farmer_id")
-    private AgroUser farmer; // Farmer being notified
+//    @ManyToOne
+//    @JoinColumn(name = "farmer_id")
+//    private AgroUser recipient; // Farmer being notified
 }
 

@@ -1,5 +1,7 @@
 package com.agro.backend.controller;
 
+import java.security.Principal;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,10 +33,22 @@ public class AgroBookingController {
     @PostMapping
     @PreAuthorize("hasRole('FARMER')")
     @Operation(description="add")
-    public ResponseEntity<?> createBooking(@RequestBody @Valid BookingRequestDto requestDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(bookingService.createBooking(requestDto));
+    public ResponseEntity<?> createBooking(@RequestBody @Valid BookingRequestDto requestDto, Principal principal) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(bookingService.createBooking(requestDto, principal));
     }
-
+    
+    /*
+     * POST
+     * pathvariable -> ID
+     * response -> response DTO 
+     */
+    
+    @PutMapping("/{bookingId}/approve")
+    @PreAuthorize("hasRole('SERVICEPROVIDER')")
+    public ResponseEntity<?> approveBooking(@PathVariable Long bookingId, Principal principal) {
+        return ResponseEntity.status(HttpStatus.OK).body(bookingService.approveBooking(bookingId, principal));
+    }
+    
     @GetMapping("/{id}")
     public ResponseEntity<?> getBookingById(@PathVariable Long id) {
         return ResponseEntity.ok(bookingService.getBookingById(id));

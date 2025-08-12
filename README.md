@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Agro Services Platform - Backend
 
 A Spring Boot based backend application for managing agricultural service bookings, providers, users, and notifications.
@@ -117,3 +118,6 @@ A Spring Boot based backend application for managing agricultural service bookin
 
 ## License
 Distributed under the **MIT License**. See `LICENSE` for details.
+=======
+# Agro-serve
+>>>>>>> e9de12462071ad71dfa042c9800c7ea529e65ae8

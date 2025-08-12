@@ -1,0 +1,147 @@
+/* Navbar background and padding */
+.custom-navbar {
+  background: linear-gradient(135deg, #0d3b23, #198754);
+  padding: 0.6rem 1rem;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Logo styles */
+.navbar-logo {
+  height: 42px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.brand-text {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: white;
+}
+
+/* Nav links styles */
+.nav-links .nav-link {
+  color: #e3fcef;
+  font-weight: 500;
+  margin: 0 5px;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-links .nav-link:hover {
+  color: #f1c40f;
+}
+
+.nav-links .nav-link.active {
+  color: #f1c40f;
+}
+
+/* Buttons in navbar */
+.nav-btn {
+  font-weight: 600;
+  border-radius: 20px;
+  padding: 5px 14px;
+}
+
+/* Profile picture in navbar */
+.profile-icon {
+  border: 2px solid white;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.profile-icon:hover {
+  transform: scale(1.05);
+  border-color: #f1c40f;
+}
+
+/* Dropdown menu customization */
+.dropdown-menu-custom {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* User dropdown toggle arrow as white arrow */
+.dropdown-toggle-avatar::after {
+  display: inline-block;
+  margin-left: 0.35em;
+  vertical-align: 0.255em;
+  content: "";
+  border-top: 0.3em solid white;
+  border-right: 0.3em solid transparent;
+  border-left: 0.3em solid transparent;
+}
+
+/* Make all dropdown toggle arrows white and visible except notifications */
+.dropdown-toggle::after {
+  filter: brightness(0) invert(1);
+  font-size: 1.2em;
+  margin-left: 0.35em;
+}
+
+/* Remove arrow on notifications dropdown toggle */
+#dropdown-notifications.dropdown-toggle::after {
+  display: none;
+}
+
+/* Notification badge styles */
+.notification-bell {
+  cursor: pointer;
+  position: relative;
+}
+
+/* Bell icon inside notifications toggle */
+.notification-bell i.bi-bell {
+  font-size: 24px;
+  color: white;
+  user-select: none;
+  pointer-events: none; /* Let clicks go to dropdown toggle */
+  transition: color 0.3s ease;
+}
+
+.notification-bell:hover i.bi-bell {
+  color: #f1c40f; /* Optional hover color */
+}
+
+.notification-badge {
+  font-size: 0.7rem;
+  padding: 0.3em 0.45em;
+  border: 2px solid white;
+  user-select: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+  border-radius: 50%;
+  background-color: #dc3545; /* Bootstrap danger red */
+  color: white;
+}
+
+/* Notifications dropdown menu */
+.dropdown-menu-notifications {
+  max-height: 400px;
+  overflow-y: auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  background: white;
+}
+
+.dropdown-menu-notifications h6 {
+  font-weight: 600;
+  color: #198754; /* your green */
+  margin-bottom: 0;
+}
+
+.dropdown-menu-notifications .dropdown-item:hover {
+  background-color: #d1e7dd; /* light green */
+}
+
+/* Change user profile dropdown hover/focus colors */
+.dropdown-menu-custom .dropdown-item:hover,
+.dropdown-menu-custom .dropdown-item:focus {
+  background-color: #198754 !important; /* project green */
+  color: white !important;
+}
+
+.dropdown-menu-custom .dropdown-item.active {
+  background-color: #145c32 !important; /* darker green */
+  color: white !important;
+}

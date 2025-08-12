@@ -1,0 +1,52 @@
+/* src/styles/AuthPage.css */
+.auth-page {
+  min-height: 100vh;
+  background: linear-gradient(120deg, #198754, #28a745);
+  padding: 40px 0;
+}
+
+.auth-card {
+  border-radius: 12px;
+  background: white;
+  transition: transform 0.3s ease-in-out;
+}
+
+.auth-card:hover {
+  transform: translateY(-5px);
+}
+
+.auth-card h3 {
+  font-weight: bold;
+}
+
+.auth-card .form-control:focus {
+  border-color: #198754;
+  box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+}
+
+
+/* src/styles/AuthPage.css */
+.auth-page {
+  min-height: 100vh;
+  background: linear-gradient(120deg, #198754, #28a745);
+  padding: 40px 0;
+}
+
+.auth-card {
+  border-radius: 12px;
+  background: white;
+  transition: transform 0.3s ease-in-out;
+}
+
+.auth-card:hover {
+  transform: translateY(-5px);
+}
+
+.auth-card h3 {
+  font-weight: bold;
+}
+
+.auth-card .form-control:focus {
+  border-color: #198754;
+  box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+}

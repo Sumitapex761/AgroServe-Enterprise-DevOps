@@ -59,10 +59,14 @@ pipeline {
             }
         }
     }
+    tools {
+    maven 'Maven'  // Name you gave in Global Tool Configuration
+}
+
 
     post {
         always {
-            echo 'Pipeline finished.'
+            echo 'Pipeline Finished.'
         }
         success {
             echo 'Build succeeded!'

@@ -79,8 +79,7 @@ pipeline {
     agent any
 
     environment {
-        SONAR_TOKEN = credentials('sonar')           // SonarQube token
-        EMAIL_RECIPIENT = credentials('email')       // Email credentials
+        SONAR_TOKEN = credentials('sonar') // SonarQube token
     }
 
     stages {
@@ -130,7 +129,7 @@ pipeline {
 
         stage('Email Notification') {
             steps {
-                mail to: "$EMAIL_RECIPIENT",
+                mail to: "youremail@example.com", // Replace with your valid recipient email
                      subject: "AgroServe Build Notification - ${currentBuild.fullDisplayName}",
                      body: "Build Status: ${currentBuild.currentResult}\nCheck Jenkins for details."
             }

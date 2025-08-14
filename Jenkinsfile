@@ -59,10 +59,7 @@ pipeline {
             }
         }
     }
-    tools {
-    maven 'Maven'  // Name you gave in Global Tool Configuration
-}
-
+ 
 
     post {
         always {

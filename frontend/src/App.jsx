@@ -5,7 +5,7 @@ import HomePage from "./Pages/HomePage";
 import ServicesPage from "./Pages/ServicesPage";
 import BookingsPage from "./Pages/BookingsPage";
 import ContactPage from "./Pages/ContactPage";
-import LoginPage from "./pages/LoginPage";
+import LoginPage from "./Pages/LoginPage";
 import SignupPage from "./Pages/SignupPage";
 import DashboardPage from "./Pages/DashboardPage"; 
 

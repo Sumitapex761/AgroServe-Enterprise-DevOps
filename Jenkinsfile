@@ -7,7 +7,7 @@ pipeline {
     }
 
     stages {
-        stage('SonarQube Analysis') {
+        stage('SonarQube Analysi') {
             steps {
                 sh """
                 cd backend

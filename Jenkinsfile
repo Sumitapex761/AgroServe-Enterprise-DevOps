@@ -19,7 +19,10 @@ pipeline {
 
         stage('OWASP Scan') {
             steps {
-                dependencyCheck additionalArguments: '--project AgroServe --scan backend'
+                dependencyCheck(
+                    odcInstallation: 'DP-Check',  // Name of your OWASP installation in Jenkins
+                    additionalArguments: '--project AgroServe --scan backend'
+                )
             }
         }
 

@@ -11,8 +11,7 @@ pipeline {
             steps {
                 sh """
                 cd backend
-                mvn clean verify sonar:sonar -Dsonar.login=$SONAR_TOKEN -Dsonar.host.url=http://localhost:9000
-                """
+                mvn clean verify sonar:sonar -Dsonar.login=$SONAR_TOKEN -Dsonar.host.url=http://192.168.106.142:9000                """
             }
         }
 

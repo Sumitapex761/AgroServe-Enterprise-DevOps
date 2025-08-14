@@ -2,11 +2,9 @@ pipeline {
     agent any
 
     environment {
-    DOCKERHUB_CREDENTIALS = credentials('docker')  // Use the exact ID you just created
-    SONAR_TOKEN = credentials('sonar')           
-    EMAIL_RECIPIENT = credentials('email')       
-}
-
+        SONAR_TOKEN = credentials('sonar')           // SonarQube token
+        EMAIL_RECIPIENT = credentials('email')       // Email credentials
+    }
 
     stages {
         stage('SonarQube Analysis') {
@@ -43,11 +41,13 @@ pipeline {
 
         stage('Push Docker Images') {
             steps {
-                sh """
-                echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
-                docker push sumitapex761/agroserve-backend:latest
-                docker push sumitapex761/agroserve-frontend:latest
-                """
+                withCredentials([usernamePassword(credentialsId: 'docker', usernameVariable: 'DOCKERHUB_USR', passwordVariable: 'DOCKERHUB_PSW')]) {
+                    sh """
+                    echo $DOCKERHUB_PSW | docker login -u $DOCKERHUB_USR --password-stdin
+                    docker push sumitapex761/agroserve-backend:latest
+                    docker push sumitapex761/agroserve-frontend:latest
+                    """
+                }
             }
         }
 

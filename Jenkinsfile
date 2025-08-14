@@ -11,7 +11,7 @@ pipeline {
             steps {
                 sh """
                 cd backend
-                mvn clean verify sonar:sonar -Dsonar.login=$sonar -Dsonar.host.url=http://localhost:9000
+                mvn clean verify sonar:sonar -Dsonar.login=$SONAR_TOKEN -Dsonar.host.url=http://localhost:9000
                 """
             }
         }
@@ -69,7 +69,7 @@ pipeline {
             echo 'Build succeeded!'
         }
         failure {
-            echo 'Build failed!'
+            echo 'Build Failed!'
         }
     }
 }

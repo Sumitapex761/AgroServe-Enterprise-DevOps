@@ -2,10 +2,11 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub')  // DockerHub username/password
-        SONAR_TOKEN = credentials('sonar')               // SonarQube token
-        EMAIL_RECIPIENT = credentials('email')           // Email credentials
-    }
+    DOCKERHUB_CREDENTIALS = credentials('docker')  // Use the exact ID you just created
+    SONAR_TOKEN = credentials('sonar')           
+    EMAIL_RECIPIENT = credentials('email')       
+}
+
 
     stages {
         stage('SonarQube Analysis') {

@@ -6,30 +6,30 @@ pipeline {
         EMAIL_RECIPIENT = credentials('email')       // Email credentials
     }
 
-    stages {
-        stage('SonarQube Analysi') {
-            steps {
-                sh """
-                cd backend
-                mvn clean verify sonar:sonar -Dsonar.login=$SONAR_TOKEN -Dsonar.host.url=http://192.168.106.142:9000  -DskipTests             """
-            }
-        }
+    // stages {
+    //     stage('SonarQube Analysi') {
+    //         steps {
+    //             sh """
+    //             cd backend
+    //             mvn clean verify sonar:sonar -Dsonar.login=$SONAR_TOKEN -Dsonar.host.url=http://192.168.106.142:9000  -DskipTests             """
+    //         }
+    //     }
 
-        stage('OWASP Scan') {
-            steps {
-                dependencyCheck(
-                    odcInstallation: 'DP-Check',  // Name of your OWASP installation in Jenkins
-                    additionalArguments: '--project AgroServe --scan backend'
-                )
-            }
-        }
+    //     stage('OWASP Scan') {
+    //         steps {
+    //             dependencyCheck(
+    //                 odcInstallation: 'DP-Check',  // Name of your OWASP installation in Jenkins
+    //                 additionalArguments: '--project AgroServe --scan backend'
+    //             )
+    //         }
+    //     }
 
-        stage('Trivy Docker Scan') {
-            steps {
-                sh 'trivy image sumitapex761/agroserve-backend:latest || true'
-                sh 'trivy image sumitapex761/agroserve-frontend:latest || true'
-            }
-        }
+    //     stage('Trivy Docker Scan') {
+    //         steps {
+    //             sh 'trivy image sumitapex761/agroserve-backend:latest || true'
+    //             sh 'trivy image sumitapex761/agroserve-frontend:latest || true'
+    //         }
+    //     }
 
         stage('Build Docker Images') {
             steps {

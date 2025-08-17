@@ -1,7 +1,5 @@
 # 🌾 DevOps AgroServe Platform
 
-![AgroServe Logo](https://raw.githubusercontent.com/Sumitapex761/AgroServe-Enterprise-DevOps/main/assets/logo.png)
-
 [![CI/CD](https://img.shields.io/badge/CI/CD-Jenkins-orange?logo=jenkins)](https://jenkins.io/) 
 [![Docker](https://img.shields.io/badge/Docker-Container-blue?logo=docker)](https://www.docker.com/) 
 [![Kubernetes](https://img.shields.io/badge/Kubernetes-Cluster-blue?logo=kubernetes)](https://kubernetes.io/) 
@@ -108,14 +106,25 @@ kubectl get svc -n agro
 - Many-to-One: Booking → User/Service
 - One-to-One: Notification → Booking
 
-🎯 **Why This Project is DevOps-Ready**
-- Full CI/CD pipeline using Jenkins & Docker
-- Multi-node Kubernetes deployment with ArgoCD GitOps
-- Monitoring dashboards & alerts with Prometheus & Grafana
-- Security-first approach:
-  - Static code analysis: SonarQube
-  - Container scanning: Trivy
-  - OWASP best practices
+🎯 DevOps Highlights
+
+CI/CD Pipeline: Jenkins builds, tests, and deploys automatically
+
+Containerization: Docker images for backend & frontend
+
+Orchestration: Kubernetes multi-node deployment
+
+GitOps: ArgoCD automates deployments from Git repo
+
+Monitoring: Prometheus collects metrics, Grafana visualizes dashboards
+
+Security & Code Quality:
+
+SonarQube for static code analysis
+
+Trivy for container vulnerability scanning
+
+OWASP best practices applied
 
 🔧 **How to Contribute**
 ```bash
@@ -131,6 +140,20 @@ git push origin feature-name
 
 # Open a pull request
 ```
+📜 License
+
+MIT License. See LICENSE for details.
+
+
+This is **fully DevOps-focused**, highlighting **pipelines, containers, orchestration, monitoring, and security**, with badges, tech stack, and Kubernetes deployment — ready to **showcase your DevOps skills** in GitHub portfolio.  
+
+If you want, I can also make a **super “live badge” version** showing **Jenkins build status, Docker pulls, SonarQube quality, and Prometheus alerts** all in the README — looks ultra-professional.  
+
+Do you want me to do that next?
+
+
+
+
 
 ✅ **Why this is better:**  
 - Each major section (Backend, Frontend, Database, Relationships, DevOps highlights) has a clear heading  

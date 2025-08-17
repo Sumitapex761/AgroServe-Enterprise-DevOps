@@ -1,96 +1,163 @@
-# 🌾 AgroServe: Enterprise-Grade Agriculture Services Platform
+# 🌾 DevOps AgroServe Platform
 
-[![Build Status](https://img.shields.io/jenkins/build?label=Jenkins&color=orange)](https://your-jenkins-url)
-[![Docker](https://img.shields.io/docker/pulls/sumitapex761/agroserve-backend)](https://hub.docker.com/r/sumitapex761/agroserve-backend)
-[![Kubernetes](https://img.shields.io/badge/Kubernetes-Cluster-blue)](https://kubernetes.io/)
-[![SonarQube](https://img.shields.io/sonar/quality_gate?server=https%3A%2F%2Fsonarqube.yourserver.com&project=AgroServe)](https://sonarqube.yourserver.com/dashboard?id=AgroServe)
+![AgroServe Logo](https://raw.githubusercontent.com/Sumitapex761/AgroServe-Enterprise-DevOps/main/assets/logo.png)
+
+[![CI/CD](https://img.shields.io/badge/CI/CD-Jenkins-orange?logo=jenkins)](https://jenkins.io/) 
+[![Docker](https://img.shields.io/badge/Docker-Container-blue?logo=docker)](https://www.docker.com/) 
+[![Kubernetes](https://img.shields.io/badge/Kubernetes-Cluster-blue?logo=kubernetes)](https://kubernetes.io/) 
+[![Prometheus](https://img.shields.io/badge/Monitoring-Prometheus-orange?logo=prometheus)](https://prometheus.io/) 
+[![Grafana](https://img.shields.io/badge/Dashboard-Grafana-red?logo=grafana)](https://grafana.com/) 
+[![SonarQube](https://img.shields.io/badge/Code_Quality-SonarQube-blue?logo=sonarqube)](https://www.sonarqube.org/)
 [![Trivy](https://img.shields.io/badge/Security-Trivy-red)](https://aquasec.com/trivy)
-[![OWASP](https://img.shields.io/badge/Security-OWASP-brightgreen)](https://owasp.org/)
-
-**AgroServe** is a **full-stack agriculture services platform** with integrated **DevOps automation**, **monitoring**, and **security**.  
-It manages **users, service providers, bookings, and notifications** with modern CI/CD pipelines and container orchestration.
 
 ---
 
-## 🚀 Live Demo
-> Frontend NodePort URL: `http://<any-node-ip>:32000`  
-*(Replace `<any-node-ip>` with your Kubernetes node IP)*
+## 🔥 DevOps-Centric Overview
+
+**DevOps AgroServe** is a full-stack agriculture service platform **built to demonstrate modern DevOps practices**, including:
+
+- **CI/CD pipelines** with automated build, test, code quality scan, and deployment  
+- **Containerization** of backend and frontend using Docker  
+- **Orchestration** with Kubernetes (`kubeadm`) and GitOps via Argo CD  
+- **Security Scanning** using Trivy & OWASP dependency checks  
+- **Monitoring** using Prometheus and Grafana dashboards  
+
+This project **shows end-to-end DevOps workflow**, from code commit to automated deployment and live monitoring.
 
 ---
 
-## 🔥 Tech Stack & DevOps Tools
+## 🛠 Tech & DevOps Stack
 
-![Java](https://img.shields.io/badge/Java-21-blue)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-brightgreen)
-![MySQL](https://img.shields.io/badge/MySQL-8.0-blue)
-![React](https://img.shields.io/badge/React-17.0-blue)
-![Node.js](https://img.shields.io/badge/Node.js-18.0-green)
-![Docker](https://img.shields.io/badge/Docker-Container-blue)
-![Kubernetes](https://img.shields.io/badge/K8s-Cluster-blue)
-![Prometheus](https://img.shields.io/badge/Prometheus-Monitor-orange)
-![Grafana](https://img.shields.io/badge/Grafana-Dashboard-red)
-
-- **CI/CD:** Git + Jenkins  
-- **Containerization:** Docker  
-- **Orchestration:** Kubernetes (kubeadm, Argo CD)  
-- **Monitoring:** Prometheus, Grafana  
-- **Security & Code Quality:** Trivy, OWASP Dependency Check, SonarQube  
+| Layer | Technology |
+|-------|-----------|
+| **Backend** | Java 17, Spring Boot 3.x, MySQL, JPA/Hibernate |
+| **Frontend** | React.js |
+| **CI/CD** | Jenkins Pipeline + SonarQube + Trivy + OWASP |
+| **Containerization** | Docker Images for frontend & backend |
+| **Orchestration** | Kubernetes (Namespace: `agro`) + Argo CD |
+| **Monitoring** | Prometheus + Grafana |
+| **Secrets & Storage** | Kubernetes Secrets, PVC for MySQL |
 
 ---
 
-## 🖥 Backend Overview
+## ⚡ Local Setup (Frontend + Backend)
 
-- Spring Boot backend for managing users, providers, services, bookings, notifications  
-- Entities: `AgroUser`, `AgroServiceProvider`, `AgroService`, `AgroBooking`, `AgroNotification`  
-- Validation: Jakarta Validation (`@NotBlank`, `@Email`, `@Pattern`)  
-- Exception Handling: Global `@ControllerAdvice` for API errors  
-- Database: MySQL 8, with JPA/Hibernate relationships  
-
----
-
-## 🌐 Frontend Overview
-
-- React.js app for managing agricultural services  
-- NodePort service exposed at port `32000`  
-- Communicates with backend via REST APIs  
-
----
-
-## ⚙️ DevOps Highlights
-
-### 1️⃣ CI/CD Pipeline
-- Automated Jenkins pipeline:
-  - Build backend & frontend
-  - Run tests & SonarQube analysis
-  - Docker build & push
-  - Security scans (Trivy & OWASP)
-  - Kubernetes deployment via Argo CD  
-
-### 2️⃣ Containerization & Orchestration
-- Dockerized backend & frontend  
-- Kubernetes (namespace `agro`) for deployments, services, and secrets  
-- PersistentVolumeClaims for MySQL storage  
-
-### 3️⃣ Monitoring & Metrics
-- Prometheus for metrics  
-- Grafana dashboards for visual monitoring  
-
-### 4️⃣ Security & Code Quality
-- Trivy: Docker image vulnerability scans  
-- OWASP Dependency Check: Dependency vulnerabilities  
-- SonarQube: Continuous code quality & security checks  
-
----
-
-## ☸️ Kubernetes Deployment Steps
-
+### 1️⃣ Backend
 ```bash
+cd backend
+mvn spring-boot:run
+Runs on port 9090
+
+Swagger UI: http://localhost:9090/swagger-ui.html
+
+
+2️⃣ Frontend
+cd frontend
+npm install
+npm start
+
+Runs on port 3000
+Communicates with backend at http://localhost:9
+
+3️⃣ Access
+Open frontend: http://localhost:3000
+Full-stack app is running locally.
+
+☸️ Kubernetes Deployment (Namespace agro)
+
 kubectl create namespace agro
 
+# MySQL PVC & Deployment
 kubectl apply -f k8s-project/mysql-pvc.yaml -n agro
 kubectl apply -f k8s-project/mysql-deployment.yaml -n agro
+
+# Backend Deployment
 kubectl apply -f k8s-project/backend-deployment.yaml -n agro
+
+# Frontend Deployment
 kubectl apply -f k8s-project/frontend-deployment.yaml -n agro
 
+# Verify pods & services
 kubectl get pods -n agro -o wide
 kubectl get svc -n agro
+
+
+Frontend NodePort: http://<any-node-ip>:32000
+
+Backend ClusterIP: http://backend-service:9090 (internal cluster)
+
+
+
+🚀 DevOps Pipeline Highlights
+
+Git → Jenkins
+
+Automated pipeline triggered on git push
+
+Builds backend & frontend Docker images
+
+Code Quality & Security
+
+SonarQube scans Java backend code
+
+OWASP dependency check for vulnerabilities
+
+Trivy scans Docker images for security issues
+
+Containerization
+
+Docker images pushed to registry
+
+Kubernetes deployments automated via Jenkins & Argo CD
+
+Kubernetes & GitOps
+
+Namespace: agro
+
+Cluster-deployed MySQL, backend, and frontend services
+
+Config & secrets managed via Kubernetes
+
+Monitoring & Alerts
+
+Prometheus collects metrics from pods
+
+Grafana dashboards visualize CPU, memory, and app health
+
+🏗 Project Features (AgroServe)
+
+User CRUD, Service Provider CRUD, Bookings, Notifications
+
+DTO-based request validation
+
+Global Exception Handling
+
+JWT Security (planned)
+
+Swagger API documentation
+
+📝 License
+
+Distributed under MIT License. See LICENSE for details.
+
+
+---
+
+✅ **This version makes your GitHub repo look super DevOps-oriented**:
+
+- DevOps tools appear at the top as badges  
+- CI/CD, monitoring, containerization, GitOps are clearly highlighted  
+- Local + Kubernetes deployment instructions are present  
+- Professional formatting with emojis and tables  
+
+---
+
+If you want, I can **also make a final ultra-attractive “colored & illustrated README” with logos, arrows, and visual workflow diagram** — so when recruiters open your repo, it screams DevOps expertise.  
+
+Do you want me to do that next?
+
+
+
+
+
+

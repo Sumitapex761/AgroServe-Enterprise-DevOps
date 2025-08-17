@@ -1,5 +1,4 @@
-# 🌾 DevOps AgroServe Platform
-
+🌾 AgroServe: Full-Stack DevOps Automation Platform
 [![CI/CD](https://img.shields.io/badge/CI/CD-Jenkins-orange?logo=jenkins)](https://jenkins.io/) 
 [![Docker](https://img.shields.io/badge/Docker-Container-blue?logo=docker)](https://www.docker.com/) 
 [![Kubernetes](https://img.shields.io/badge/Kubernetes-Cluster-blue?logo=kubernetes)](https://kubernetes.io/) 

@@ -1,119 +1,96 @@
-# Agro Services Platform - Backend
+# 🌾 AgroServe: Enterprise-Grade Agriculture Services Platform
 
-A Spring Boot based backend application for managing agricultural service bookings, providers, users, and notifications.
+[![Build Status](https://img.shields.io/jenkins/build?label=Jenkins&color=orange)](https://your-jenkins-url)
+[![Docker](https://img.shields.io/docker/pulls/sumitapex761/agroserve-backend)](https://hub.docker.com/r/sumitapex761/agroserve-backend)
+[![Kubernetes](https://img.shields.io/badge/Kubernetes-Cluster-blue)](https://kubernetes.io/)
+[![SonarQube](https://img.shields.io/sonar/quality_gate?server=https%3A%2F%2Fsonarqube.yourserver.com&project=AgroServe)](https://sonarqube.yourserver.com/dashboard?id=AgroServe)
+[![Trivy](https://img.shields.io/badge/Security-Trivy-red)](https://aquasec.com/trivy)
+[![OWASP](https://img.shields.io/badge/Security-OWASP-brightgreen)](https://owasp.org/)
 
----
-
-## **Features Implemented**
-
-### **1. Entities**
-- **AgroUser**
-  - Attributes: `id`, `name`, `email`, `password`, `phone`, `role (ENUM)`, `address`
-  - Used for managing users like Admin, Service Providers, and Customers.
-- **AgroServiceProvider**
-  - Attributes: `id`, `name`, `companyName`, `contactInfo`, `email`
-  - Handles agricultural service providers and their offered services.
-- **AgroService**
-  - Attributes: `id`, `name`, `description`, `price`, `provider_id`
-  - Represents agricultural services offered by providers.
-- **AgroBooking**
-  - Attributes: `id`, `status (ENUM)`, `bookingTime`, `user_id`, `service_id`
-  - Represents bookings made by users for services.
-- **AgroNotification**
-  - Attributes: `id`, `message`, `sentAt`, `booking_id`, `farmer_id`
-  - Handles notification records for users.
+**AgroServe** is a **full-stack agriculture services platform** with integrated **DevOps automation**, **monitoring**, and **security**.  
+It manages **users, service providers, bookings, and notifications** with modern CI/CD pipelines and container orchestration.
 
 ---
 
-### **2. DTOs (Data Transfer Objects)**
-- **AgroUserRequestDTO** → For creating and updating users (with validation annotations).
-- **ProviderRequestDto** → For creating service providers.
-- **ApiResponseDto** → Standard success response message.
-- *(Similar DTOs can be extended for services and bookings.)*
+## 🚀 Live Demo
+> Frontend NodePort URL: `http://<any-node-ip>:32000`  
+*(Replace `<any-node-ip>` with your Kubernetes node IP)*
 
 ---
 
-### **3. Controllers**
-- **AgroUserController**
-  - Endpoints:
-    - `POST /users` → Create User
-    - `PUT /users/{id}` → Update User
-    - `DELETE /users/{id}` → Delete User
-    - `GET /users` → Get All Users
-- **AgroServiceProviderController**
-  - Endpoints:
-    - `POST /provider/addprovider` → Add Service Provider
-    - `GET /provider/{id}` → Get Provider By ID
-- **AgroNotificationController**
-  - Endpoints prepared for future notification operations.
+## 🔥 Tech Stack & DevOps Tools
+
+![Java](https://img.shields.io/badge/Java-21-blue)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-brightgreen)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-blue)
+![React](https://img.shields.io/badge/React-17.0-blue)
+![Node.js](https://img.shields.io/badge/Node.js-18.0-green)
+![Docker](https://img.shields.io/badge/Docker-Container-blue)
+![Kubernetes](https://img.shields.io/badge/K8s-Cluster-blue)
+![Prometheus](https://img.shields.io/badge/Prometheus-Monitor-orange)
+![Grafana](https://img.shields.io/badge/Grafana-Dashboard-red)
+
+- **CI/CD:** Git + Jenkins  
+- **Containerization:** Docker  
+- **Orchestration:** Kubernetes (kubeadm, Argo CD)  
+- **Monitoring:** Prometheus, Grafana  
+- **Security & Code Quality:** Trivy, OWASP Dependency Check, SonarQube  
 
 ---
 
-### **4. Services & Implementations**
-- **AgroUserService** & **AgroUserServiceImpl**
-  - Handles user CRUD operations.
-- **AgroServiceProviderService** & **AgroServiceProviderServiceImpl**
-  - Handles provider creation and fetch operations.
-- **AgroNotificationService** & **AgroNotificationServiceImpl**
-  - Handles notifications logic (future integration with booking events).
+## 🖥 Backend Overview
+
+- Spring Boot backend for managing users, providers, services, bookings, notifications  
+- Entities: `AgroUser`, `AgroServiceProvider`, `AgroService`, `AgroBooking`, `AgroNotification`  
+- Validation: Jakarta Validation (`@NotBlank`, `@Email`, `@Pattern`)  
+- Exception Handling: Global `@ControllerAdvice` for API errors  
+- Database: MySQL 8, with JPA/Hibernate relationships  
 
 ---
 
-### **5. Exception Handling**
-- **Custom Exceptions**
-  - `ApiPostResponseException`
-  - `BadRequestException`
-  - `ResourceNotFoundException`
-- **Global Exception Handler**
-  - `GlobalExceptionHandler` using `@ControllerAdvice`
-  - Handles:
-    - `ApiPostResponseException` → Conflict (409)
-    - `BadRequestException` → Bad Request (400)
-    - `ResourceNotFoundException` → No Content (204)
-    - Generic `Exception` → Internal Server Error (500)
+## 🌐 Frontend Overview
+
+- React.js app for managing agricultural services  
+- NodePort service exposed at port `32000`  
+- Communicates with backend via REST APIs  
 
 ---
 
-### **6. Validation**
-- DTOs use **Jakarta Validation** (`@NotBlank`, `@Email`, `@Pattern`, `@Size`) for request payload validation.
+## ⚙️ DevOps Highlights
+
+### 1️⃣ CI/CD Pipeline
+- Automated Jenkins pipeline:
+  - Build backend & frontend
+  - Run tests & SonarQube analysis
+  - Docker build & push
+  - Security scans (Trivy & OWASP)
+  - Kubernetes deployment via Argo CD  
+
+### 2️⃣ Containerization & Orchestration
+- Dockerized backend & frontend  
+- Kubernetes (namespace `agro`) for deployments, services, and secrets  
+- PersistentVolumeClaims for MySQL storage  
+
+### 3️⃣ Monitoring & Metrics
+- Prometheus for metrics  
+- Grafana dashboards for visual monitoring  
+
+### 4️⃣ Security & Code Quality
+- Trivy: Docker image vulnerability scans  
+- OWASP Dependency Check: Dependency vulnerabilities  
+- SonarQube: Continuous code quality & security checks  
 
 ---
 
-### **7. Database**
-- **MySQL** used as database.
-- Mappings:
-  - One-to-Many: `AgroServiceProvider → AgroService`
-  - Many-to-One: `AgroBooking → AgroService` & `AgroBooking → AgroUser`
-  - One-to-One: `AgroNotification → AgroBooking`
+## ☸️ Kubernetes Deployment Steps
 
----
+```bash
+kubectl create namespace agro
 
-## **Tech Stack**
-- **Java 17**
-- **Spring Boot 3.x**
-- **Spring Data JPA**
-- **ModelMapper** (for DTO <-> Entity mapping)
-- **MySQL**
-- **Lombok** (for boilerplate code reduction)
-- **Validation** (`jakarta.validation`)
+kubectl apply -f k8s-project/mysql-pvc.yaml -n agro
+kubectl apply -f k8s-project/mysql-deployment.yaml -n agro
+kubectl apply -f k8s-project/backend-deployment.yaml -n agro
+kubectl apply -f k8s-project/frontend-deployment.yaml -n agro
 
----
-
-## **Planned Features**
-- Notifications triggered on booking and cancellation (via SMS/Push).
-- Security Integration (Spring Security + JWT).
-- React-based Frontend (in-progress).
-- Dashboard with Graphs & Analytics.
-
----
-
-## **How to Run**
-1. Clone this repository.
-2. Configure `application.properties` with MySQL credentials.
-3. Run `mvn spring-boot:run`.
-4. Access Swagger UI at `http://localhost:8080/swagger-ui.html`.
-
----
-
-## License
-Distributed under the **MIT License**. See `LICENSE` for details.
+kubectl get pods -n agro -o wide
+kubectl get svc -n agro
